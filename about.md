@@ -4,12 +4,9 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I work as a scientific software engineer at the UK Met Office, currently developing C++ based infrastructure for observation processing and data assimilation.
 
-### More Information
+I graduated from Johns Hopkins in 2019, where I studied Environmental Engineering and Applied Math and researched a novel method of thinning carbon dioxide satellite datasets using spatial statistics.
 
-A place to include any other types of information that you'd like to include about yourself.
+I am interested in building software that makes cities more sustainable, especially through climate change resilience and reducing air pollution.
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
