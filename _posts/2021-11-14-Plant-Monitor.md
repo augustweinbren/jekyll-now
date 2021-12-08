@@ -3,7 +3,6 @@ layout: post
 title: Building a Plant Monitor for Soil Moisture and Ambient Conditions
 published: true
 ---
-# Building a Plant Monitor and a Case for Open Sourcing IoT Development
 
 Note: for a step-by-step walkthrough, please refer to the READMEs in [this GitHub Repository](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor).
 
