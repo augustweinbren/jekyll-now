@@ -13,11 +13,11 @@ A plant monitor can be used to sense the conditions of a plant, providing insigh
 This particular plant monitor is used to track the ambient humidity and temperature along with the soil moisture to provide information to the plant gardener as to when the plant should be watered, and if the plant should be moved to a different space.
 
 ## Pre-requisites
-- [Items needed](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#items-needed-).
-- [Software Installation Guide](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#installations-).
+- Items needed can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#items-needed-).
+- A software installation guide can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#installations-).
 
 ## Arduino-based software development
-Step-by-step instructions for this step are [in the root of plantMonitor](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#adapting-and-running-examples-to-ensure-board-is-working-).
+Step-by-step instructions for this step can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#adapting-and-running-examples-to-ensure-board-is-working-).
 
 In summary, the first development tasks required for this project involve sending a series of test scripts to the Arduino Feather Huzzah board to ensure that all of the necessary features work as needed. Specifically, this process consists of first testing the `Hello World` equivalent of Arduino, followed by testing the device's ability to connect to WiFi, moving onto testing its ability to get time data from the internet, and finally testing the device's ability to publish to and subscribe to an MQTT server. While not identical, one can see the parallels between this approach and Test-Driven-Development.
 
@@ -31,7 +31,7 @@ For reproducability, a fritzing diagram detailing the integrated moisture-DHT22 
 
 
  <p>
-    <img alt="" src="./_posts/img/01_plant_monitor/nail-sensor.jpg">
+    <img alt="" src="./img/01_plant_monitor/nail-sensor.jpg">
       <em>Finished plant-monitor with nails inserted into plant</em>
   </p>
 
