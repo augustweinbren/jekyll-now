@@ -13,11 +13,11 @@ A plant monitor can be used to sense the conditions of a plant, providing insigh
 This particular plant monitor is used to track the ambient humidity and temperature along with the soil moisture to provide information to the plant gardener as to when the plant should be watered, and if the plant should be moved to a different space.
 
 ## Pre-requisites
-- Items needed can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#items-needed-).
-- A software installation guide can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#installations-).
+- [Items needed](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#items-needed-).
+- [Software installation guide](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#installations-).
 
 ## Arduino-based software development
-Step-by-step instructions for this step can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#adapting-and-running-examples-to-ensure-board-is-working-).
+[Step-by-step instructions](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#adapting-and-running-examples-to-ensure-board-is-working-).
 
 In summary, the first development tasks required for this project involve sending a series of test scripts to the Arduino Feather Huzzah board to ensure that all of the necessary features work as needed. Specifically, this process consists of first testing the `Hello World` equivalent of Arduino, followed by testing the device's ability to connect to WiFi, moving onto testing its ability to get time data from the internet, and finally testing the device's ability to publish to and subscribe to an MQTT server. While not identical, one can see the parallels between this approach and Test-Driven-Development.
 
@@ -27,13 +27,9 @@ By deploying the test scripts in order of increasing complexity, one will be abl
 
 The second task involves prototyping the sensor on a breadboard before soldering an equivalent on a PCB.
 
-For reproducability, a fritzing diagram detailing the integrated moisture-DHT22 circuitry can be found [here](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#circuit-prototyping-).
+For reproducability, a fritzing diagram detailing the integrated moisture-DHT22 circuitry is in [the GitHub repository](https://github.com/augustweinbren/casa0014/tree/main/plantMonitor#circuit-prototyping-).
 
-
- <p>
-    <img alt="" src="./img/01_plant_monitor/nail-sensor.jpg">
-      <em>Finished plant-monitor with nails inserted into plant</em>
-  </p>
+![nail sensor in plant]({{ site.baseurl }}/images/01_plant_monitor/nail-sensor.jpg "Finished plant-monitor with nails inserted into plant")
 
 To understand the circuitry, it makes sense to focus on the soil moisture sensor, as this is both more fault-prone and relevant for the care of a houseplant (because ambient humidity and temperature are less realistic to adjust in response to the outputs of the plant monitor).
 
@@ -45,24 +41,17 @@ where ![\V_{in}](https://latex.codecogs.com/svg.latex?V_{in}) represents the 5V 
 
 Based on this formula, a high measured voltage will correspond to a high soil conductivity and therefore high soil moisture.
 
-<p>
-  <img alt="Moisture sensor circuit powered by digital pin" src="./img/01_plant_monitor/fritzingBasicDiagram.jpg">
-    <em>Basic moisture sensor circuit (Tucker, 2015)</em>
-</p>
+![Moisture sensor circuit powered by digital pin]({{ site.baseurl }}/images/01_plant_monitor/fritzingBasicDiagram.jpg "Basic moisture sensor circuit (Tucker, 2015)")
 
 While the basic circuit described above would function without issue for a time, the underlying electrolysis reaction that occurs when power is sent to the first nail leads to corrosion and increasing uncertainty in the moisture measurements. To preserve the device, it is therefore best to only send power through the nails when a reading is needed. 
 
 There are a couple of ways to do this. The approach used in this iteration of the plant monitor makes use of a transistor, whose middle pin is linked to a digital pin to turn the sensor on and off. It also requires an additional resistor between the nail and the analog input to bring the maximum voltage down to 1V, based on the board's analog input standards.
-<p>
-  <img alt="Moisture sensor circuit enabled by transistor" src="./img/01_plant_monitor/nailsAndTransistorBasic.png">
-    <em>Moisture sensor circuit enabled by transistor</em>
-</p>
+
+![Fritzing diagram of transistor-enabled moisture sensor]({{ site.baseurl }}/images/01_plant_monitor/nailsAndTransistorBasic.png "Moisture sensor circuit enabled by transistor")
 
 However, I believe a more lightweight (and potentially resilient) solution could be achieved by instead turning the powered nail on and off with a digital pin set to output. This would remove the need for a transistor.
-<p>
-  <img alt="Moisture sensor circuit powered by digital pin" src="./img/01_plant_monitor/NailsAndTransistorDigitallyControlled_bb.png">
-    <em>Moisture sensor circuit powered by digital pin</em>
-</p>
+
+![Fritzing diagram of digital pin-enabled moisture sensor]({{ site.baseurl }}/images/01_plant_monitor/NailsAndTransistorDigitallyControlled_bb.png "Moisture sensor circuit powered by digital pin")
 
 ### Raspberry Pi-based Data Collection and Visualisation
 
@@ -79,15 +68,11 @@ It is worth returning to the plant monitor to understand the value added by Open
 Thus, the less often that electricity will be sent between the two nails to take moisture measurements, the less corrosion that will occur. This aspect of moisture sensing unfortunately is often missed during the development of plant monitors. For example, in the Write-Up [Moisture Detection With Two Nails](https://www.instructables.com/Moisture-Detection-With-Two-Nails/), the issue of electrolysis is ignored (Tucker, 2015). However, a mention is made in the comments by another user about the corrosive nature of this sensor (Tucker, 2015). In response, Tucker (2015) iterates on his project, and links [his new write-up](https://www.instructables.com/id/SoilMoisture-Detection-System/) in which he sends current through the nails only when a button is pressed. While there remain unsolved questions, such as how to account for instrumental drift or how to empirically measure the amount of corrosion that has occurred in the nails, open sourcing the development of this circuit allowed the maker to iterate on the design and thus greatly reduce the rate of corrosion.
 
 On a different side of the Internet of Things community from the hobbyists, I believe that urban officials would also greatly benefit from open sourcing their IoT system information. For example, most of the sensors in London are opaque. They provide little information on what data they are collecting, not only to the public, but also between the technicians and engineers hired to develop and maintain the devices--as Duncan Wilson mentioned during a lecture on 18 October 2021, operators are only knowledgable about the specific sensors that they are hired to maintain. 
-<p>
-  <img alt="Sensor at top right of traffic light with opaque usage" src="./img/01_plant_monitor/bike-lane-sensor.jpg">
-    <em>Sensor at top right of traffic light with opaque usage</em>
-</p>
-By open sourcing information about the sensors and their data--describing what they measure, how they are designed, and providing the geolocated data that they collect, urban officials would empower civic hackers to report flaws in the design and errors in the data, to use the data to power applications which allow citizens to understand their environment better, and even to innovate on the sensors themselves. 
+![Sensor in front of bike lane at traffic intersection]({{ site.baseurl }}/images/01_plant_monitor/bike-lane-sensor.jpg "Moisture sensor circuit powered by digital pin")
 
 Open sourcing government data has worked out very well in the past. In 1994, SEC first released data from its EDGAR database over the internet with Carl Malamud putting it on a non-governmental website. After announcing that he would shut the website down unless the SEC took over the webhosting, 15,000 people signed a petition to keep the website up, and the SEC took the website over. The initiative spawned such entrepreneurial ventures as Yahoo! Finance and Google Finance, proving the value that the open data provided (O'Reilly, 2017).
 
-The Code for America initiative illustrates that open source government operations work well across an array of sectors. By building apps with the aid of commercial software developers and  without the red tape that accompanies government procurement, development was faster, cheaper, and produced better results. By open sourcing these apps, other cities were also able to readily adapt software that, prior to this initiative, would have needed to be developed from scratch again, despite being easily replicable (O'Reilly, 2017). 
+The Code for America initiative illustrates that open source government operations work well across an array of sectors. By building apps with the aid of commercial software developers and without the red tape that accompanies government procurement, development was faster, cheaper, and produced better results. By open sourcing these apps, other cities were also able to readily adapt software that, prior to this initiative, would have needed to be developed from scratch again, despite being easily replicable (O'Reilly, 2017). 
 
 Although what I propose extends beyond the realm of open sourcing data and software, I believe that the demonstrated benefits of open government will only be magnified with the incorporation of hardware with the open sourcing of its sensor-based systems. Given there are more moving parts, there is more room for error. With more room for error comes more room for innovation, and thus even more benefit to consulting the community of civic hackers.
 
